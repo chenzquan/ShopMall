@@ -136,6 +136,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.mmall.pojo.Order">
     update mmall_order
     <set>
