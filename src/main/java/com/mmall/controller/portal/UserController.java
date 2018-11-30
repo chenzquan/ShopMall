@@ -75,7 +75,11 @@ public class UserController {
         return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
     }
 
-
+    /**
+     * 获取忘记密码问题
+     * @param username
+     * @return
+     */
     @RequestMapping(value = "forget_get_question.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetGetQuestion(String username){
@@ -119,7 +123,9 @@ public class UserController {
         if(response.isSuccess()){
             response.getData().setUsername(currentUser.getUsername());
             session.setAttribute(Const.CURRENT_USER,response.getData());
+            response.setData(null);
         }
+
         return response;
     }
 

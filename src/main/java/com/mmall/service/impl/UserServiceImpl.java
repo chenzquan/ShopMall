@@ -7,11 +7,10 @@ import com.mmall.dao.UserMapper;
 import com.mmall.pojo.User;
 import com.mmall.service.IUserService;
 import com.mmall.util.MD5Util;
-import com.mysql.fabric.Server;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.commons.lang3.StringUtils.*;
+
 
 import java.util.UUID;
 
@@ -61,14 +60,16 @@ public class UserServiceImpl implements IUserService {
             return ServerResponse.createByErrorMessage("用户名不存在");
         }
 
-      //  String md5Password = MD5Util.MD5EncodeUtf8(password);
-        String md5Password = password;
+        String md5Password = MD5Util.MD5EncodeUtf8(password);
+  //      String md5Password = password;
         // TODO md5加密
         User user = userMapper.selectLogin(username,md5Password);
         if(user == null){
             return ServerResponse.createByErrorMessage("密码错误");
         }
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
+        user.setQuestion(org.apache.commons.lang3.StringUtils.EMPTY);
+        user.setAnswer(org.apache.commons.lang3.StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功",user);
     }
 
@@ -101,7 +102,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ServerResponse<String> selectQuestion(String username) {
         ServerResponse validResponse = this.checkValid(username,Const.USERNAME);
-        if(!validResponse.isSuccess()){
+        if(validResponse.isSuccess()){
             return ServerResponse.createByErrorMessage("用户不存在");
         }
 
@@ -133,11 +134,11 @@ public class UserServiceImpl implements IUserService {
         }
 
         ServerResponse validResponse = this.checkValid(username,Const.USERNAME);
-        if(!validResponse.isSuccess()){
+        if(validResponse.isSuccess()){
             return ServerResponse.createByErrorMessage("用户不存在");
         }
 
-        String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX + forgetToken);
+        String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX + username);
         if(org.apache.commons.lang3.StringUtils.isBlank(token)){
             return ServerResponse.createByErrorMessage("token已经失效");
         }
@@ -206,6 +207,18 @@ public class UserServiceImpl implements IUserService {
         }
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess(user);
+    }
+
+
+    //————————————————————————————————————————————————————————————————————————————————
+    //backend 后台管理员的接口
+
+    @Override
+    public ServerResponse checkAdminRole(User user) {
+        if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
     }
 
 

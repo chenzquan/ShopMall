@@ -4,6 +4,7 @@ import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 
 
+
 public interface IUserService {
 
     ServerResponse<User> login(String username,String password);
@@ -23,4 +24,7 @@ public interface IUserService {
     ServerResponse<User> updateInformation(User user);
 
     ServerResponse<User> getInformation(Integer id);
+
+    //校验用户 是否是 管理员
+    ServerResponse checkAdminRole(User user);
 }
