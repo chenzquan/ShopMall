@@ -7,7 +7,7 @@ public class Cart{
 
     private Integer userId;
 
-    private Integer productId;
+    private Integer productId; //购买数量
 
     private Integer quantity;
 

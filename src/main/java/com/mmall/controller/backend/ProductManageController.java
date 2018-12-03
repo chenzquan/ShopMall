@@ -86,6 +86,7 @@ public class ProductManageController {
     }
 
 
+    @SuppressWarnings("SingleStatementInBlock")
     @RequestMapping("list.do")
     @ResponseBody
     public ServerResponse getList(HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
@@ -95,7 +96,7 @@ public class ProductManageController {
         }
 
         if(iUserService.checkAdminRole(user).isSuccess()){
-
+            // 获取商品 product 信息 mmall_product
             return iProductService.getProductList(pageNum,pageSize);
         }else{
             return ServerResponse.createByErrorMessage("无权限操作");
@@ -111,7 +112,7 @@ public class ProductManageController {
         }
 
         if(iUserService.checkAdminRole(user).isSuccess()){
-
+            //根据 商品的 id 和 名称 来查询
             return iProductService.searchProduct(productName,productId,pageNum,pageSize);
         }else{
             return ServerResponse.createByErrorMessage("无权限操作");
@@ -124,7 +125,6 @@ public class ProductManageController {
         User user = (User)session.getAttribute(Const.CURRENT_USER);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录管理员");
-
         }
         if(iUserService.checkAdminRole(user).isSuccess()){
             //填充业务

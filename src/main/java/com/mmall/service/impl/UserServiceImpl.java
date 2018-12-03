@@ -62,7 +62,7 @@ public class UserServiceImpl implements IUserService {
 
         String md5Password = MD5Util.MD5EncodeUtf8(password);
   //      String md5Password = password;
-        // TODO md5加密
+        //  md5加密
         User user = userMapper.selectLogin(username,md5Password);
         if(user == null){
             return ServerResponse.createByErrorMessage("密码错误");
@@ -213,9 +213,10 @@ public class UserServiceImpl implements IUserService {
     //————————————————————————————————————————————————————————————————————————————————
     //backend 后台管理员的接口
 
+    @SuppressWarnings("SingleStatementInBlock")
     @Override
     public ServerResponse checkAdminRole(User user) {
-        if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN){
+        if(user != null && user.getRole() == Const.Role.ROLE_ADMIN){
             return ServerResponse.createBySuccess();
         }
         return ServerResponse.createByError();

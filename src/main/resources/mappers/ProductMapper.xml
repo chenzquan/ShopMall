@@ -194,8 +194,8 @@
         and name like #{productName}
       </if>
 
-      <if test="productId != null">
-        and productId=#{productId}
+      <if test="productId!=null">
+        and id=#{productId}
       </if>
     </where>
   </select>
