@@ -1,6 +1,5 @@
 package com.mmall.controller.portal;
 
-import com.google.common.collect.ContiguousSet;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
