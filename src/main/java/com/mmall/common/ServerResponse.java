@@ -1,7 +1,6 @@
 package com.mmall.common;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 import java.io.Serializable;
 
 //保证序列化json的时候,如果是null的对象,key也会消失
@@ -88,10 +87,5 @@ public class ServerResponse<T> implements Serializable {
     public static ServerResponse createByErrorCodeMessage(int errorCode,String msg){
         return new ServerResponse(errorCode,msg);
     }
-
-
-
-
-
 
 }

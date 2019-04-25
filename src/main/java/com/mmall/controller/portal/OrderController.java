@@ -55,6 +55,7 @@ public class OrderController {
 
         Map requestParams = request.getParameterMap();
 
+        //noinspection ForLoopReplaceableByForEach
         for(Iterator iterator = requestParams.keySet().iterator();iterator.hasNext();){
             String name = (String) iterator.next();
             String [] values = (String[]) requestParams.get(name);

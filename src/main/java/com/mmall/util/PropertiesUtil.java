@@ -1,5 +1,4 @@
 package com.mmall.util;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,11 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-/**
- * Created by geely
- */
 
 // 读取 配置文件
+@SuppressWarnings("CharsetObjectCanBeUsed")
 public class PropertiesUtil {
 
     private static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);

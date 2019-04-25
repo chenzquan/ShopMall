@@ -42,7 +42,7 @@ import java.util.*;
 @Service("iOrderService")
 public class OrderServiceImpl implements IOrderService {
 
-    private static  AlipayTradeService tradeService;
+    private static AlipayTradeService tradeService;
     static {
 
 //        /** 一定要在创建AlipayTradeService之前调用Configs.init()设置默认参数
