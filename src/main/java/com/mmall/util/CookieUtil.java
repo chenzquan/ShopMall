@@ -52,9 +52,11 @@ public class CookieUtil {
         if(cookies!=null){
             for (Cookie ck : cookies){
                 if(StringUtils.equals(ck.getName(),COOKIE_NAME)){
+//                    ck.setValue(null);
                     ck.setDomain(COOKIE_DOMAIN);
                     ck.setPath("/");
                     ck.setMaxAge(0); //设置成功 代表删除此cookie
+                    ck.setHttpOnly(true);
                     log.info("del cookieName:{},cookieValue:{}",ck.getName(),ck.getValue());
                     response.addCookie(ck);
                     return;

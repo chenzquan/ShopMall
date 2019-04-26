@@ -50,8 +50,8 @@ public class UserController {
     @ResponseBody
     public ServerResponse<String> logout(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse){
         String loginToken = CookieUtil.readLoginToken(httpServletRequest);  //
-        CookieUtil.delLoginToken(httpServletRequest,httpServletResponse);
-        RedisPoolUtil.del(loginToken);
+        CookieUtil.delLoginToken(httpServletRequest,httpServletResponse); //删除客户端的cookie
+        RedisPoolUtil.del(loginToken); //删除 redis 的 cookie
 //        session.removeAttribute(Const.CURRENT_USER);
         return ServerResponse.createBySuccess();
     }
