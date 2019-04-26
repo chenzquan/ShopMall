@@ -6,10 +6,12 @@ import java.util.Set;
 
 public class Const {
 
-    public static String CURRENT_USER = "CURRENT_USER";
-    public static String EMAIL = "EMAIL";
+    public static final String CURRENT_USER = "CURRENT_USER";
+    public static final String EMAIL = "EMAIL";
 
-    public static String USERNAME = "USERNAME";
+    public static final String USERNAME = "USERNAME";
+
+    public static final String TOKEN_PREFIX = "token_";
 
     public interface RedisCacheExtime{
         int REDIS_SESSION_EXTIME = 60*30; //30分钟
