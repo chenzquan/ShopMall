@@ -17,12 +17,12 @@ public class CookieUtil {
     //d:A.happymmall.com/test/dd    cookie:domain=A.happymmall.com;path="/test/dd"
     //e:A.happymmall.com/test       cookie:domain=A.happymmall.com;path="/test"
 
-    private final static String COOKIE_DOMAIN = "www.happymmalltest.com";
+    private final static String COOKIE_DOMAIN = "happymmalltest.com";
     private final static String COOKIE_NAME = "mmall_login_token";
 
     public static void writeLoginToken(HttpServletResponse response,String token){
         Cookie ck = new Cookie(COOKIE_NAME,token);  // mmall_login_token : sessionId
-        ck.setDomain(COOKIE_DOMAIN);  //Domain : www.happymmalltest.com
+        ck.setDomain(COOKIE_DOMAIN);  //Domain : happymmalltest.com
         ck.setPath("/");//代表设置在根目录  //Path : /
         ck.setHttpOnly(true);
         //单位是秒。
