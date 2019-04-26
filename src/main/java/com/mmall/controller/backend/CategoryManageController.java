@@ -8,11 +8,16 @@ import com.mmall.pojo.Category;
 import com.mmall.pojo.User;
 import com.mmall.service.ICategoryService;
 import com.mmall.service.IUserService;
+import com.mmall.util.CookieUtil;
+import com.mmall.util.JsonUtil;
+import com.mmall.util.RedisPoolUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -32,13 +37,19 @@ public class CategoryManageController {
      * 增加 category
      * @param categoryName 商品类别名称
      * @param parentId
-     * @param session
+     * @param
      * @return
      */
     @RequestMapping(value = "add_category.do")
     @ResponseBody
-    public ServerResponse<String> addCategory(String categoryName,@RequestParam(value = "parentId",defaultValue = "0") int parentId,HttpSession session){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<String> addCategory(String categoryName, @RequestParam(value = "parentId",defaultValue = "0") int parentId, HttpServletRequest httpServletRequest){
+        String loginToken = CookieUtil.readLoginToken(httpServletRequest);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+        }
+
+        String userJsonStr = RedisPoolUtil.get(loginToken);
+        User user = JsonUtil.string2Obj(userJsonStr,User.class);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
@@ -56,13 +67,19 @@ public class CategoryManageController {
      * 设置 商品类别 名字
      * @param categoryId
      * @param categoryName
-     * @param session
+     * @param
      * @return
      */
     @RequestMapping(value = "set_category_name.do")
     @ResponseBody
-    public ServerResponse<String> setCategoryName(Integer categoryId,String categoryName,HttpSession session){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<String> setCategoryName(Integer categoryId,String categoryName,HttpServletRequest httpServletRequest){
+        String loginToken = CookieUtil.readLoginToken(httpServletRequest);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+        }
+
+        String userJsonStr = RedisPoolUtil.get(loginToken);
+        User user = JsonUtil.string2Obj(userJsonStr,User.class);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
@@ -77,8 +94,14 @@ public class CategoryManageController {
 
     @RequestMapping(value = "get_category.do")
     @ResponseBody
-    public ServerResponse<List<Category>> getChildrendParallelCategory(HttpSession session, @RequestParam(value = "categoryId",defaultValue = "0") Integer categoryId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<List<Category>> getChildrendParallelCategory(HttpServletRequest httpServletRequest, @RequestParam(value = "categoryId",defaultValue = "0") Integer categoryId){
+        String loginToken = CookieUtil.readLoginToken(httpServletRequest);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+        }
+
+        String userJsonStr = RedisPoolUtil.get(loginToken);
+        User user = JsonUtil.string2Obj(userJsonStr,User.class);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
@@ -100,12 +123,17 @@ public class CategoryManageController {
 
     @RequestMapping(value = "get_deep_category.do")
     @ResponseBody
-    public ServerResponse<List<Integer>> getCategoryAndDeepChildrenCategory(HttpSession session,@RequestParam(value = "categoryId",defaultValue = "0") Integer categoryId){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
+    public ServerResponse<List<Integer>> getCategoryAndDeepChildrenCategory(HttpServletRequest httpServletRequest,@RequestParam(value = "categoryId",defaultValue = "0") Integer categoryId){
+        String loginToken = CookieUtil.readLoginToken(httpServletRequest);
+        if(StringUtils.isEmpty(loginToken)){
+            return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
+        }
+
+        String userJsonStr = RedisPoolUtil.get(loginToken);
+        User user = JsonUtil.string2Obj(userJsonStr,User.class);
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"用户未登录,请登录");
         }
-
         if(iUserService.checkAdminRole(user).isSuccess()){
             //查询当前节点的 id 和 递归子节点的id
             // 0->10000->100000
