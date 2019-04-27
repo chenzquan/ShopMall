@@ -32,9 +32,10 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "login.do",method = RequestMethod.POST)
+    @RequestMapping(value = "login.do",method = RequestMethod.GET)
     @ResponseBody //返回的时候 自动通过spring MVC 的 message-converters 转化 json  这里 在dispather-servlet.xml 配置
     public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse httpServletResponse){
+
         ServerResponse<User> response = iUserService.login(username,password);
         if(response.isSuccess()){
 //            session.setAttribute(Const.CURRENT_USER,response.getData());

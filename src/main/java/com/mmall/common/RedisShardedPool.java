@@ -84,8 +84,13 @@ public class RedisShardedPool {
         for(int i =0;i<10;i++){
             jedis.set("key"+i,"value"+i);
         }
-        returnResource(jedis);
 
+        for (int i=0; i<10; i++){
+            String value = jedis.get("key" + i);
+            System.out.println(value);
+        }
+
+        returnResource(jedis);
 //        pool.destroy();//临时调用，销毁连接池中的所有连接
         System.out.println("program is end");
     }
