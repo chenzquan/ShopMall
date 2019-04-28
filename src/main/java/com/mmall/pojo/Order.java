@@ -3,6 +3,10 @@ package com.mmall.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
+/**
+ * 订单表
+ */
 public class Order {
     private Integer id;
 
