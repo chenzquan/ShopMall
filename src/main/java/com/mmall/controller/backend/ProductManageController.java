@@ -17,9 +17,7 @@ import com.mmall.vo.ProductDetailVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -103,6 +101,14 @@ public class ProductManageController {
 //        }
         return iProductService.manageProductDetail(productId);
     }
+
+    //用RESTful 改造接口
+    @RequestMapping(value = "/{productId}",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse getDetailRESTful(@PathVariable Integer productId){
+        return iProductService.manageProductDetail(productId);
+    }
+
 
 
     @SuppressWarnings("SingleStatementInBlock")
