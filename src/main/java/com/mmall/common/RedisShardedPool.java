@@ -36,7 +36,6 @@ public class RedisShardedPool {
 //    redis2.port=6380
 
 
-
     private static void initPool(){
 
         JedisPoolConfig config = new JedisPoolConfig();
