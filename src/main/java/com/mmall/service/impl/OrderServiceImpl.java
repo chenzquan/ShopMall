@@ -626,7 +626,6 @@ public class OrderServiceImpl implements IOrderService {
             for (OrderItem orderItem : orderItemList){
                 //以 商品表中的 id 来查询  这里用了行锁
                 Integer stock = productMapper.selectStockByProductId(orderItem.getProductId());
-
                 //考虑到已生成的订单里的商品，被删除的情况
                 if (stock == null){
                     continue;

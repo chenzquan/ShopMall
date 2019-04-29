@@ -2,7 +2,6 @@ package com.mmall.controller.common.interceptor;
 
 import com.google.common.collect.Maps;
 import com.mmall.common.Const;
-import com.mmall.common.RedisShardedPool;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.User;
 import com.mmall.util.CookieUtil;
@@ -13,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;

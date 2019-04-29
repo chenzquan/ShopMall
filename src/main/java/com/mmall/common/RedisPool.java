@@ -1,9 +1,12 @@
 package com.mmall.common;
 
+import com.mmall.util.DateTimeUtil;
 import com.mmall.util.PropertiesUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+
+import java.util.Date;
 
 public class RedisPool {
 
@@ -55,6 +58,7 @@ public class RedisPool {
 
         pool.destroy();//临时调用，销毁连接池中的所有连接
         System.out.println("program is end");
+
     }
 
 

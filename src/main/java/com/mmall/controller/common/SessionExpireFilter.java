@@ -17,6 +17,7 @@ public class SessionExpireFilter implements Filter {
 
     }
 
+    //用来重置session时间
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
