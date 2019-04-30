@@ -6,8 +6,6 @@ import org.redisson.Redisson;
 import org.redisson.config.Config;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 @Component
 @Slf4j
 public class RedissonManager {
